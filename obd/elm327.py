@@ -242,7 +242,11 @@ class ELM327:
         """
 
         if self.is_connected():
-            self.__write("ATZ")
+            try:
+                self.__write("ATZ")
+            except IOError:
+                debug("Connection error")
+
             self.__port.close()
 
             self.__connected   = False
